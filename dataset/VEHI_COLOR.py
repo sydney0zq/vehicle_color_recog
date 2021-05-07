@@ -4,15 +4,13 @@ import numpy as np
 import json
 import cv2
 import pprint
-from torchvision import transforms 
 
 import torch
 from torch.utils import data
 CURR_DIR = os.path.dirname(__file__)
 
-if __name__ == "__main__": sys.path.insert(0, os.path.join(CURR_DIR, ".."))
-from dataset import transforms as tr
-# import myutils
+# if __name__ == "__main__": sys.path.insert(0, os.path.join(CURR_DIR, ".."))
+# from dataset import transforms as tr
 
 COLOR_LIST = ["black", "blue", "cyan", "gray", "green", "red", "white", "yellow"]
 
@@ -101,7 +99,7 @@ class VECOLOR(data.Dataset):
 
 
 if __name__ == "__main__":
-
+    from torchvision import transforms 
     composed_transforms = transforms.Compose([
             tr.RandomScale(0.8, 1.3, 640),
             tr.RandomCrop(640),
