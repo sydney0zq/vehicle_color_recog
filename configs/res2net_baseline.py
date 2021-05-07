@@ -10,7 +10,6 @@ class Configuration():
     def __init__(self):
         self.EXP_NAME = 'res2net_base'
 
-        
         self.DIR_ROOT = './'
         self.DIR_DATA = os.path.join(self.DIR_ROOT, 'data')
         self.DIR_RESULT = os.path.join(self.DIR_ROOT, 'result', self.EXP_NAME)
@@ -18,9 +17,7 @@ class Configuration():
         self.DIR_LOG = os.path.join(self.DIR_RESULT, 'log')
         self.DIR_IMG_LOG = os.path.join(self.DIR_RESULT, 'log', 'img')
         self.DIR_EVALUATION = os.path.join(self.DIR_RESULT, 'eval')
-
         self.DIR_VECOLOR = os.path.join(self.DIR_ROOT, 'data')
-
 
         self.DATASETS = ['vecolor']
         self.DATA_WORKERS = 4
@@ -32,51 +29,44 @@ class Configuration():
 
         self.COLOR_LIST = ["black", "blue", "cyan", "gray", "green", "red", "white", "yellow"]
 
-
         self.PRETRAIN = True
-        self.PRETRAIN_FULL = False
-        self.PRETRAIN_MODEL = './pretrain_models/resnet101-deeplabv3p.pth.tar'
 
         self.MODEL_NUM_CLASSES = len(self.COLOR_LIST)
         self.MODEL_GCT_BETA_WD = True
 
-        self.TRAIN_TOTAL_STEPS = 100000
+        self.TRAIN_TOTAL_STEPS = 50000
         self.TRAIN_START_STEP = 0
-        self.TRAIN_EVAL_STEPS = 100
+        self.TRAIN_EVAL_STEPS = 5000
         self.TRAIN_LR = 0.01
         self.TRAIN_MOMENTUM = 0.9
         self.TRAIN_COSINE_DECAY = False
         self.TRAIN_WARM_UP_STEPS = 1000
         self.TRAIN_WEIGHT_DECAY = 15e-5
         self.TRAIN_POWER = 0.9
-        self.TRAIN_GPUS = 1
+        self.TRAIN_GPUS = 2
         self.TRAIN_BATCH_SIZE = 8
-        self.TRAIN_START_SEQ_TRAINING_STEPS = self.TRAIN_TOTAL_STEPS / 2
         self.TRAIN_LOG_STEP = 20
         self.TRAIN_CLIP_GRAD_NORM = 5.
-        self.TRAIN_SAVE_STEP = 1000
-        self.TRAIN_MAX_KEEP_CKPT = 8
+        self.TRAIN_SAVE_STEP = 5000
         self.TRAIN_RESUME = False
         self.TRAIN_RESUME_CKPT = None
         self.TRAIN_RESUME_STEP = 0
         self.TRAIN_AUTO_RESUME = True
-        self.TRAIN_DATASET_FULL_RESOLUTION = True
 
-
-        self.TEST_GPU_ID = 0
-        self.TEST_DATASET = 'youtubevos'
-        self.TEST_DATASET_FULL_RESOLUTION = False
-        self.TEST_DATASET_SPLIT = ['val']
-        self.TEST_CKPT_PATH = None
-        self.TEST_CKPT_STEP = None  # if "None", evaluate the latest checkpoint.
-        self.TEST_FLIP = False
-        self.TEST_MULTISCALE = [1]
-        self.TEST_MIN_SIZE = None
-        self.TEST_MAX_SIZE = 800 * 1.3 if self.TEST_MULTISCALE == [1.] else 800
-        self.TEST_WORKERS = 4
+        # self.TEST_GPU_ID = 0
+        # self.TEST_DATASET = 'youtubevos'
+        # self.TEST_DATASET_FULL_RESOLUTION = False
+        # self.TEST_DATASET_SPLIT = ['val']
+        # self.TEST_CKPT_PATH = None
+        # self.TEST_CKPT_STEP = None  # if "None", evaluate the latest checkpoint.
+        # self.TEST_FLIP = False
+        # self.TEST_MULTISCALE = [1]
+        # self.TEST_MIN_SIZE = None
+        # self.TEST_MAX_SIZE = 800 * 1.3 if self.TEST_MULTISCALE == [1.] else 800
+        # self.TEST_WORKERS = 4
 
         # dist
-        self.DIST_ENABLE = False
+        self.DIST_ENABLE = True
         self.DIST_BACKEND = "gloo"
         self.DIST_URL = "file:///tmp/sharefile"
         self.DIST_START_GPU = 0
