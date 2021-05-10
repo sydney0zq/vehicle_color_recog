@@ -38,11 +38,11 @@ class Trainer(object):
                 init_method=cfg.DIST_URL,
                 world_size=cfg.TRAIN_GPUS, 
                 rank=rank, 
-                timeout=datetime.timedelta(seconds=30))
+                timeout=datetime.timedelta(seconds=100))
             self.dist_model = torch.nn.parallel.DistributedDataParallel(
                 self.model, 
                 device_ids=[self.gpu],
-                find_unused_parameters=True)
+                find_unused_parameters=False)
         else:
             self.dist_model = self.model
 
@@ -111,7 +111,6 @@ class Trainer(object):
             tr.ToTensor()])
         
         train_datasets = []
-        val_datasets = []
         if 'vecolor' in cfg.DATASETS:
             train_vecolor_dataset = VECOLOR(
                     root=cfg.DIR_VECOLOR,
@@ -157,9 +156,9 @@ class Trainer(object):
             sampler=self.train_sampler)
         self.valloader = DataLoader(
             val_dataset,
-            batch_size=int(cfg.TRAIN_BATCH_SIZE / cfg.TRAIN_GPUS),
+            batch_size=1,
             shuffle=False,
-            num_workers=cfg.DATA_WORKERS, 
+            num_workers=0, 
             pin_memory=True, 
             sampler=self.val_sampler)
 
@@ -235,6 +234,7 @@ class Trainer(object):
                     self.print_log(strs)
                 
                 if step % cfg.TRAIN_EVAL_STEPS == 0 or step == 0:
+                    self.print_log("Eval iter {:06d}...".format(step))
                     self.eval_training()
 
                 if step % cfg.TRAIN_SAVE_STEP == 0 and step != 0 and self.rank == 0:
@@ -272,7 +272,7 @@ class Trainer(object):
                 for idx in range(len(accs)):
                     running_accs[idx].update(accs[idx])
             
-            strs = 'Val Loss {:.3f} Acc/P/R/F1: {:.2f}/{:.2f}/{:.2f}/{:.2f}'.format(
+            strs = 'Val Loss: {:.3f} Acc/P/R/F1: {:.2f}/{:.2f}/{:.2f}/{:.2f}'.format(
                             running_losses.avg, 
                             running_accs[0].avg, running_accs[1].avg, running_accs[2].avg, running_accs[3].avg,)
             self.print_log(strs)

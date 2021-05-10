@@ -13,7 +13,7 @@ model_urls = {
 }
 
 def custom_load_state_dict(url, model):
-    pretrained_dict = model_zoo.load_url(url)
+    pretrained_dict = model_zoo.load_url(url, map_location=torch.device('cpu'))
     model_dict = model.state_dict()
     pretrained_dict_update = {}
     pretrained_dict_remove = []

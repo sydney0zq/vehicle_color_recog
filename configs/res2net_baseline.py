@@ -37,21 +37,22 @@ class Configuration():
         self.TRAIN_TOTAL_STEPS = 50000
         self.TRAIN_START_STEP = 0
         self.TRAIN_EVAL_STEPS = 5000
-        self.TRAIN_LR = 0.01
+        self.TRAIN_LR = 0.001
         self.TRAIN_MOMENTUM = 0.9
         self.TRAIN_COSINE_DECAY = False
         self.TRAIN_WARM_UP_STEPS = 1000
         self.TRAIN_WEIGHT_DECAY = 15e-5
         self.TRAIN_POWER = 0.9
         self.TRAIN_GPUS = 2
-        self.TRAIN_BATCH_SIZE = 8
+        self.TRAIN_BATCH_SIZE = 12
         self.TRAIN_LOG_STEP = 20
         self.TRAIN_CLIP_GRAD_NORM = 5.
-        self.TRAIN_SAVE_STEP = 5000
+        self.TRAIN_SAVE_STEP = 2000
         self.TRAIN_RESUME = False
         self.TRAIN_RESUME_CKPT = None
         self.TRAIN_RESUME_STEP = 0
         self.TRAIN_AUTO_RESUME = True
+        self.TRAIN_MAX_KEEP_CKPT = 8
 
         # self.TEST_GPU_ID = 0
         # self.TEST_DATASET = 'youtubevos'
@@ -67,7 +68,7 @@ class Configuration():
 
         # dist
         self.DIST_ENABLE = True
-        self.DIST_BACKEND = "gloo"
+        self.DIST_BACKEND = "nccl"
         self.DIST_URL = "file:///tmp/sharefile"
         self.DIST_START_GPU = 0
 

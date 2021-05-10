@@ -13,11 +13,8 @@ CURR_DIR = os.path.dirname(__file__)
 # from dataset import transforms as tr
 
 """
-HUST EIC 车辆颜色数据集的DataLoader
+VERI 数据集 车辆颜色&类型数据集的DataLoader
 """
-
-
-COLOR_LIST = ["black", "blue", "cyan", "gray", "green", "red", "white", "yellow"]
 
 random.seed(0); np.random.seed(0); torch.manual_seed(0)
 
@@ -27,7 +24,7 @@ class VECOLOR(data.Dataset):
     def __init__(self, root, phase, transform=None):
         self.root = root
         self.img_d = os.path.join(root, "JPEGImages")
-        self.set_d = os.path.join(root, "ImageSets")
+        self.set_d = os.path.join(root, "Annotations")
         self.phase = phase
         self.color_list = COLOR_LIST
         assert self.phase in ["train", "val"], f"Phase {phase} must be `train`/`val`!"
